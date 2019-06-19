@@ -1,0 +1,93 @@
+<!-- Editable table -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{ tableName }}</h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span *ngIf="editable" class="table-add float-right mb-3 mr-2">
+        <a class="text-success" (click)="add()">
+          <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+        </a>
+        <a class="text-info" (click)="save()">
+          <mdb-icon fas icon="save" size="2x"></mdb-icon>
+        </a>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center server-list-table">
+        <tr>
+          <th class="text-center"></th>
+          <th class="text-center">Hostname</th>
+          <th class="text-center">IP Address</th>
+          <th class="text-center">Owner</th>
+          <th class="text-center">Status</th>
+          <th class="text-left">Description</th>
+          <th *ngIf="editable" class="text-center">Remove</th>
+        </tr>
+        <tr *ngFor="let server of serverList; trackBy: server?.id">
+          <td>
+            <a href="http://{{ server.hostname }}" target="_blank">
+              <mdb-icon fas icon="server"></mdb-icon>
+            </a>
+          </td>
+          <td>
+            <span
+              [contentEditable]="editable"
+              data-placeholder="Hostname ..."
+              (blur)="updateList(server.id, 'hostname', $event)"
+              [innerHTML]="server.hostname"
+            ></span>
+          </td>
+          <td>
+            <span
+              [contentEditable]="editable"
+              data-placeholder="IP ..."
+              (blur)="updateList(server.id, 'ip', $event)"
+              [innerHTML]="server.ip"
+            ></span>
+          </td>
+          <td>
+            <span
+              contentEditable="true"
+              data-placeholder="Owner name ..."
+              (blur)="updateList(server.id, 'owner', $event)"
+              [innerHTML]="server.owner"
+            ></span>
+          </td>
+          <td>
+            <span
+              [ngClass]="{
+                badge: server.status !== '-',
+                'badge-success': server.status === 'FREE',
+                'badge-danger': server.status === 'USED'
+              }"
+              contentEditable="true"
+              (blur)="updateList(server.id, 'status', $event)"
+              [innerHTML]="server.status"
+            ></span>
+          </td>
+          <td class="text-left">
+            <span
+              contentEditable="true"
+              (blur)="updateList(server.id, 'description', $event)"
+              [innerHTML]="server.description"
+            ></span>
+          </td>
+          <td *ngIf="editable">
+            <span class="table-remove">
+              <button
+                type="button"
+                mdbBtn
+                color="danger"
+                rounded="true"
+                size="sm"
+                class="my-0"
+                (click)="remove(server.id)"
+              >
+                <mdb-icon far icon="trash-alt"></mdb-icon>
+              </button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Editable table -->

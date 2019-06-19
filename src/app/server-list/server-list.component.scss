@@ -1,0 +1,35 @@
+.table-add {
+    a + a {
+        margin-left: 15px;
+    }
+}
+
+.server-list-table {
+    span[contenteditable] {
+        display: inline-block;
+
+        &:empty::before {
+            display: inline-block;
+            color: grey;
+            opacity: 0.7;
+            content: attr(data-placeholder);
+        }
+
+        &:empty:focus::before {
+            content: attr(data-focused-advice);
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    tr {
+        td {
+            vertical-align: middle !important;
+        }
+        span {
+            &:not([class]) {
+                padding: 1rem 1rem;
+            }
+        }
+    }
+}

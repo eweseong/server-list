@@ -1,10 +1,27 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { ServerListComponent } from './server-list/server-list.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ServerListComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'servers',
+    component: ServerListComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: '*',
+    redirectTo: '',
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

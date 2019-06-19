@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "hostname": "QA-TSMY-01-CA2",
+    "ip": "10.104.110.193",
+    "owner": "Storefront",
+    "status": "-",
+    "description": "Nightly"
+  },
+  {
+    "id": 2,
+    "hostname": "QA-TSMY-02-CA2",
+    "ip": "10.104.110.228",
+    "owner": "Storefront",
+    "status": "-",
+    "description": "Nightly"
+  },
+  {
+    "id": 3,
+    "hostname": "QA-TSMY-03-CA2",
+    "ip": "10.104.110.135",
+    "owner": "Storefront",
+    "status": "-",
+    "description": "Demo Server"
+  },
+  {
+    "id": 4,
+    "hostname": "QA-DTS-01-CA2",
+    "ip": "10.104.110.252",
+    "owner": "PM/PO/Doc Writer",
+    "status": "-",
+    "description": "Stable Sitecore Commerce preview (do not deploy here)"
+  },
+  {
+    "id": 5,
+    "hostname": "KEER-TS-01-CA2",
+    "ip": "10.104.110.181",
+    "owner": "",
+    "status": "FREE",
+    "description": ""
+  }
+]
