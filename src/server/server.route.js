@@ -14,7 +14,7 @@ serverRoutes.route('/export').post(function (req, res) {
         createBulkOperations(req.body),
         (err) => handleMongoCallback(res, err, `${req.body.length} server(s) exported successfully`)
       );
-    })
+    });
   } else {
     res.status(422).send('Unable to export empty list');
   }
