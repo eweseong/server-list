@@ -15,7 +15,11 @@ export class TestControllersComponent implements OnInit {
   constructor(private vmService: VirtualMachineService) {}
 
   ngOnInit(): void {
-    this.vmService.getControllers().subscribe((controllers) => this.controllers = controllers);
+    this.vmService.getControllers().subscribe((controllers) => {
+      if (controllers) {
+        this.controllers = controllers;
+      }
+    });
   }
 
   export(controllers) {

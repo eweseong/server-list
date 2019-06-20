@@ -15,7 +15,11 @@ export class TestServersComponent implements OnInit {
   constructor(private vmService: VirtualMachineService) { }
 
   ngOnInit() {
-    this.vmService.getServers().subscribe((servers) => this.servers = servers);
+    this.vmService.getServers().subscribe((servers) => {
+      if (servers) {
+        this.servers = servers;
+      }
+    });
   }
 
   export(servers) {
