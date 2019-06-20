@@ -6,7 +6,9 @@ const cors = require('cors');
 const mongo = require('mongoose');
 
 const config = require('./DB');
-const serverRoute = require('./server.route');
+const serverModel = require('./model/server-model');
+const controllerModel = require('./model/controller-model');
+const routes = require('./routes');
 
 mongo.Promise = global.Promise;
 mongo.connect(config.DB, { useNewUrlParser: true }).then(
@@ -17,7 +19,8 @@ mongo.connect(config.DB, { useNewUrlParser: true }).then(
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-app.use(config.SERVER_ROOT, serverRoute);
+app.use(config.SERVER_ROOT, routes(serverModel));
+app.use(config.CONTROLLER_ROOT, routes(controllerModel));
 let port = process.env.port || 8080;
 
 app.listen(port, function () {
