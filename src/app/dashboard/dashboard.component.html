@@ -1,0 +1,46 @@
+<div class="dashboard">
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" routerLink="/">
+      <img src="../../assets/sitecore_logo.png" height="30" alt="mdb logo" />
+    </a>
+
+    <!-- Collapse button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#serverListNav"
+      aria-controls="serverListNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="serverListNav">
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="servers">Server</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="controllers">Controller</a>
+        </li>
+      </ul>
+      <!-- Links -->
+    </div>
+    <!-- Collapsible content -->
+  </nav>
+  <!--/.Navbar-->
+  <main>
+    <div *ngIf="loading" class="spinner-container">
+      <div class="spinner-border text-sitecore" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </main>
+</div>

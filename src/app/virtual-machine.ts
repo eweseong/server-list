@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
 
-export class Server {
+export class VirtualMachine {
   id: string;
 
   hostName: string;

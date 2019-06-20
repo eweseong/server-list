@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ServerListComponent } from './server-list/server-list.component';
+import { TestControllersComponent } from './test-controllers/test-controllers.component';
+import { TestServersComponent } from './test-servers/test-servers.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ServerListComponent,
     pathMatch: 'full',
+    redirectTo: 'servers',
   },
   {
     path: 'servers',
-    component: ServerListComponent,
+    component: TestServersComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'controllers',
+    component: TestControllersComponent,
     pathMatch: 'full',
   },
   {
