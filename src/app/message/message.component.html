@@ -1,0 +1,15 @@
+<div *ngIf="messageService.messages.length">
+  <!-- <button class="btn btn-default" (click)="messageService.clear()">
+    <i class="fas fa-trash"></i>
+  </button> -->
+  <div
+    *ngFor="let message of messageService.messages; let i = index"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="messageService.remove(i)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>

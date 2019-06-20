@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TestControllersComponent } from './test-controllers/test-controllers.component';
 import { TestServersComponent } from './test-servers/test-servers.component';
 import { VirtualMachineComponent } from './virtual-machine/virtual-machine.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { VirtualMachineComponent } from './virtual-machine/virtual-machine.compo
     TestServersComponent,
     TestControllersComponent,
     VirtualMachineComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
