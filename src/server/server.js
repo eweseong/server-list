@@ -21,8 +21,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(config.SERVER_ROOT, routes(serverModel));
 app.use(config.CONTROLLER_ROOT, routes(controllerModel));
-let port = process.env.port || 8080;
 
+const port = process.env.port || 8887;
 app.listen(port, function () {
   console.log('server listening on port: ' + port);
 });

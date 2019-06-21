@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  applicationPort: 8888,
+  apiPort: 8887,
 };
 
 /*
