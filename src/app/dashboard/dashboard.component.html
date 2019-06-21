@@ -5,34 +5,26 @@
     <a class="navbar-brand" routerLink="/">
       <img src="../../assets/sitecore_logo.png" height="30" alt="mdb logo" />
     </a>
-
-    <!-- Collapse button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#serverListNav"
-      aria-controls="serverListNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="serverListNav">
-      <!-- Links -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="servers">Server</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="controllers">Controller</a>
-        </li>
-      </ul>
-      <!-- Links -->
-    </div>
-    <!-- Collapsible content -->
+    <nav mat-tab-nav-bar>
+      <a
+        routerLink="servers"
+        routerLinkActive
+        #serverLink="routerLinkActive"
+        [active]="serverLink.isActive"
+        mat-tab-link
+      >
+        Server
+      </a>
+      <a
+        routerLink="controllers"
+        routerLinkActive
+        #controllerLink="routerLinkActive"
+        [active]="controllerLink.isActive"
+        mat-tab-link
+      >
+        Controller
+      </a>
+    </nav>
   </nav>
   <!--/.Navbar-->
   <main class="container-fluid">
@@ -44,11 +36,11 @@
     <div class="row">
       <div class="col">
         <div *ngIf="loading" class="spinner-container">
-          <div class="spinner-border text-sitecore" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
+          <mat-spinner color="accent"></mat-spinner>
         </div>
-        <router-outlet></router-outlet>
+        <div class="route-content">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </div>
   </main>

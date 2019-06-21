@@ -1,17 +1,20 @@
 <!-- Editable table -->
-<div class="card">
-  <h3 class="card-header font-weight-bold text-capitalize py-4">{{ tableName }}</h3>
-  <div class="card-body">
-    <div id="table" class="table-editable">
-      <span class="table-add float-right mb-3 mr-2">
-        <a *ngIf="editable" (click)="add()">
-          <mdb-icon fas icon="plus" size="2x"></mdb-icon>
-        </a>
-        <a *ngIf="vms && vms.length > 0" (click)="save()">
-          <mdb-icon fas icon="save" size="2x"></mdb-icon>
-        </a>
-      </span>
-      <table class="table table-bordered table-responsive-md table-striped text-center vm-list-table">
+<mat-card>
+  <mat-card-title>
+    {{ tableName }}
+    <span class="table-action float-right mb-3 mr-2">
+      <button *ngIf="editable" color="secondary" (click)="add()" mat-mini-fab>
+        <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon>
+      </button>
+      <button *ngIf="vms && vms.length > 0" color="primary" (click)="save()" mat-fab>
+        <mat-icon aria-hidden="false" aria-label="Save">save</mat-icon>
+      </button>
+    </span>
+  </mat-card-title>
+  <!-- <h3 class="card-header font-weight-bold text-capitalize py-4">{{ tableName }}</h3> -->
+  <mat-card-content>
+    <div class="table-editable">
+      <table class="table text-center vm-list-table">
         <tr>
           <th></th>
           <th>Hostname</th>
@@ -21,67 +24,67 @@
           <th class="text-left">Description</th>
           <th *ngIf="editable">Remove</th>
         </tr>
-        <tr *ngFor="let vm of vms; trackBy: vm?.id">
+        <tr
+          *ngFor="let vm of vms; trackBy: vm?.id"
+          [ngClass]="{
+            'server-used': vm.status.toUpperCase().includes('USED'),
+            'server-unused': vm.status.toUpperCase().includes('UNUSED')
+          }"
+        >
           <td>
             <a href="http://{{ vm.hostname }}" target="_blank">
-              <mdb-icon fas icon="server"></mdb-icon>
+              <mat-icon aria-hidden="false" aria-label="Server">storage</mat-icon>
             </a>
           </td>
           <td>
             <span
-              [contentEditable]="editable"
               data-placeholder="Hostname ..."
-              (blur)="updateList(vm.id, 'hostname', $event)"
+              [contentEditable]="editable"
               [innerHTML]="vm.hostname"
+              (blur)="updateList(vm.id, 'hostname', $event)"
             ></span>
           </td>
           <td>
             <span
-              [contentEditable]="editable"
               data-placeholder="IP ..."
-              (blur)="updateList(vm.id, 'ip', $event)"
+              [contentEditable]="editable"
               [innerHTML]="vm.ip"
+              (blur)="updateList(vm.id, 'ip', $event)"
             ></span>
           </td>
           <td>
             <span
               contentEditable="true"
               data-placeholder="Owner name ..."
-              (blur)="updateList(vm.id, 'owner', $event)"
               [innerHTML]="vm.owner"
+              (blur)="updateList(vm.id, 'owner', $event)"
             ></span>
           </td>
           <td>
-            <span
-              [ngClass]="{
-                badge: vm.status && vm.status !== '-',
-                'badge-success': vm.status.toUpperCase().includes('FREE'),
-                'badge-danger': vm.status.toUpperCase().includes('USED')
-              }"
-              contentEditable="true"
-              data-placeholder="Status ..."
-              (blur)="updateList(vm.id, 'status', $event)"
-              [innerHTML]="vm.status"
-            ></span>
+            <mat-form-field>
+              <mat-select [(value)]="vm.status" (change)="updateList(vm.id, 'status', $event)">
+                <mat-option *ngFor="let status of statuses" [value]="status.value">
+                  {{ status.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </td>
           <td class="text-left">
             <span
               contentEditable="true"
               data-placeholder="Description ..."
-              (blur)="updateList(vm.id, 'description', $event)"
               [innerHTML]="vm.description"
+              (blur)="updateList(vm.id, 'description', $event)"
             ></span>
           </td>
           <td *ngIf="editable">
-            <span class="table-remove">
-              <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(vm.id)">
-                <mdb-icon far icon="trash-alt"></mdb-icon>
-              </button>
-            </span>
+            <button color="error" (click)="remove(vm.id)" mat-icon-button>
+              <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>
+            </button>
           </td>
         </tr>
       </table>
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>
 <!-- Editable table -->

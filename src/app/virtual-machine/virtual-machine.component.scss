@@ -1,10 +1,20 @@
-.table-add {
-    a + a {
+.mat-card-title {
+    line-height: 62px;
+}
+
+.table-action {
+    button + button {
         margin-left: 15px;
     }
 }
 
 .vm-list-table {
+    .server-used {
+        border-left: 5px solid orangered;
+    }
+    .server-unused {
+        border-left: 5px solid lightgreen;
+    }
     span[contenteditable] {
         display: inline-block;
         &:empty::before {
@@ -24,6 +34,8 @@
 
 @media all and (min-width: 768px) {
     tr {
+        transition: border-color 0.5s ease;
+
         td {
             vertical-align: middle !important;
         }

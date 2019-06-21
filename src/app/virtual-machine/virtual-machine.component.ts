@@ -10,6 +10,12 @@ import { VirtualMachine } from '../virtual-machine';
 })
 export class VirtualMachineComponent implements OnInit {
 
+  statuses = [
+    { value: '-', label: '-' },
+    { value: 'UNUSED', label: 'Unused' },
+    { value: 'USED', label: 'Used' },
+  ];
+
   editable: boolean;
 
   @Input()
