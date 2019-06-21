@@ -8,7 +8,7 @@ describe('VirtualMachineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VirtualMachineComponent ]
+      declarations: [ VirtualMachineComponent ],
     })
     .compileComponents();
   }));

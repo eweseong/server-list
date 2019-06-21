@@ -7,10 +7,10 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MessageComponent } from './message/message.component';
 import { TestControllersComponent } from './test-controllers/test-controllers.component';
 import { TestServersComponent } from './test-servers/test-servers.component';
 import { VirtualMachineComponent } from './virtual-machine/virtual-machine.component';
-import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
