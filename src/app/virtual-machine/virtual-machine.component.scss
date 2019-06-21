@@ -7,17 +7,18 @@
 .vm-list-table {
     span[contenteditable] {
         display: inline-block;
-
         &:empty::before {
             display: inline-block;
             color: grey;
             opacity: 0.7;
             content: attr(data-placeholder);
         }
-
         &:empty:focus::before {
             content: attr(data-focused-advice);
         }
+    }
+    span[contenteditable='false'] {
+        cursor: default;
     }
 }
 

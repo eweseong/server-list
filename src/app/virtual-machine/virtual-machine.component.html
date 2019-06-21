@@ -1,25 +1,25 @@
 <!-- Editable table -->
 <div class="card">
-  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{ tableName }}</h3>
+  <h3 class="card-header font-weight-bold text-capitalize py-4">{{ tableName }}</h3>
   <div class="card-body">
     <div id="table" class="table-editable">
       <span class="table-add float-right mb-3 mr-2">
-        <a *ngIf="editable" class="text-success" (click)="add()">
+        <a *ngIf="editable" (click)="add()">
           <mdb-icon fas icon="plus" size="2x"></mdb-icon>
         </a>
-        <a class="text-sitecore" (click)="save()">
+        <a *ngIf="vms && vms.length > 0" (click)="save()">
           <mdb-icon fas icon="save" size="2x"></mdb-icon>
         </a>
       </span>
       <table class="table table-bordered table-responsive-md table-striped text-center vm-list-table">
         <tr>
-          <th class="text-center"></th>
-          <th class="text-center">Hostname</th>
-          <th class="text-center">IP Address</th>
-          <th class="text-center">Owner</th>
-          <th class="text-center">Status</th>
+          <th></th>
+          <th>Hostname</th>
+          <th>IP Address</th>
+          <th>Owner</th>
+          <th>Status</th>
           <th class="text-left">Description</th>
-          <th *ngIf="editable" class="text-center">Remove</th>
+          <th *ngIf="editable">Remove</th>
         </tr>
         <tr *ngFor="let vm of vms; trackBy: vm?.id">
           <td>
@@ -54,11 +54,12 @@
           <td>
             <span
               [ngClass]="{
-                badge: vm.status !== '-',
-                'badge-success': vm.status === 'FREE',
-                'badge-danger': vm.status === 'USED'
+                badge: vm.status && vm.status !== '-',
+                'badge-success': vm.status.toUpperCase().includes('FREE'),
+                'badge-danger': vm.status.toUpperCase().includes('USED')
               }"
               contentEditable="true"
+              data-placeholder="Status ..."
               (blur)="updateList(vm.id, 'status', $event)"
               [innerHTML]="vm.status"
             ></span>
