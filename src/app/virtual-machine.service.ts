@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { MessageService } from './message.service';
@@ -12,11 +12,11 @@ import { VirtualMachine } from './virtual-machine';
 })
 export class VirtualMachineService {
 
-  apiPort = environment.apiPort || 8887;
+  serverHost = `http://${environment.hostname}:${environment.apiPort}`;
 
-  serverURI = `http://localhost:${this.apiPort}/server/`;
+  serverURI = `${this.serverHost}/server/`;
 
-  controllerURI = `http://localhost:${this.apiPort}/controller/`;
+  controllerURI = `${this.serverHost}/controller/`;
 
   constructor(private httpClient: HttpClient, private messageService: MessageService) {}
 

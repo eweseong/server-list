@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  hostname: 'localhost',
   applicationPort: 8888,
   apiPort: 8887,
 };
