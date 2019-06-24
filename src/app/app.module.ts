@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgBusyModule } from 'ng-busy';
 
 // Angular Material Components
 import { MatButtonModule } from '@angular/material/button';
@@ -32,6 +33,7 @@ import { VirtualMachineComponent } from './virtual-machine/virtual-machine.compo
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgBusyModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,

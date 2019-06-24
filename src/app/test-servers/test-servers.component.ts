@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { VirtualMachine } from '../virtual-machine';
 import { VirtualMachineService } from '../virtual-machine.service';
@@ -10,20 +11,22 @@ import { VirtualMachineService } from '../virtual-machine.service';
 })
 export class TestServersComponent implements OnInit {
 
+  busy: Subscription;
+
   servers: VirtualMachine[] = [];
 
   constructor(private vmService: VirtualMachineService) { }
 
   ngOnInit() {
-    this.vmService.getServers().subscribe((servers) => {
+    this.busy = this.vmService.getServers().subscribe((servers) => {
       if (servers) {
         this.servers = servers;
       }
     });
   }
 
-  export(servers) {
-    this.vmService.exportServers(servers).subscribe((res) => console.log(res));
+  export(servers: VirtualMachine[]) {
+    this.busy = this.vmService.exportServers(servers).subscribe((res) => console.log(res));
   }
 
 }

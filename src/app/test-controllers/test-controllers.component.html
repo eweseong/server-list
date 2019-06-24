@@ -1,5 +1,6 @@
 <app-virtual-machine
   tableName="Test Controllers"
+  [ngBusy]="busy"
   [vms]="controllers"
   (serverExport)="export($event)"
 ></app-virtual-machine>
