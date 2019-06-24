@@ -7,7 +7,7 @@
     "start:dev": "ng serve --port 8080 --open",
     "start:application": "nodemon ./server.js",
     "start:server": "nodemon ./src/server/server.js",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
     "test": "ng test",
     "lint": "npm-run-all tslint jslint",
     "tslint": "ng lint",
