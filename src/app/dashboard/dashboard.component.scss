@@ -1,5 +1,9 @@
 .mat-tab-nav-bar {
     border-bottom: none;
+
+    .mat-tab-label-active {
+        font-weight: bold;
+    }
 }
 
 main {

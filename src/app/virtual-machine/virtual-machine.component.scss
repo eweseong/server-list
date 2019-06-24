@@ -2,13 +2,14 @@
     line-height: 62px;
 }
 
-.table-action {
-    button + button {
-        margin-left: 15px;
-    }
-}
-
 .vm-list-table {
+    th {
+        vertical-align: middle;
+
+        .btn-add-server {
+            background: lightgreen;
+        }
+    }
     .server-used {
         border-left: 5px solid orangered;
     }
@@ -29,6 +30,9 @@
     }
     span[contenteditable='false'] {
         cursor: default;
+    }
+    .btn-delete-server {
+        margin: auto;
     }
 }
 

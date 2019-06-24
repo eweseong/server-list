@@ -3,9 +3,6 @@
   <mat-card-title>
     {{ tableName }}
     <span class="table-action float-right mb-3 mr-2">
-      <button *ngIf="editable" color="secondary" (click)="add()" mat-mini-fab>
-        <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon>
-      </button>
       <button *ngIf="vms && vms.length > 0" color="primary" (click)="save()" mat-fab>
         <mat-icon aria-hidden="false" aria-label="Save">save</mat-icon>
       </button>
@@ -22,7 +19,11 @@
           <th>Owner</th>
           <th>Status</th>
           <th class="text-left">Description</th>
-          <th *ngIf="editable">Remove</th>
+          <th *ngIf="editable">
+            <button class="btn-add-server" (click)="add()" mat-raised-button>
+              <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon> Add Server
+            </button>
+          </th>
         </tr>
         <tr
           *ngFor="let vm of vms; trackBy: vm?.id"
@@ -61,7 +62,7 @@
             ></span>
           </td>
           <td>
-            <mat-form-field>
+            <mat-form-field class="text-center">
               <mat-select [(value)]="vm.status" (change)="updateList(vm.id, 'status', $event)">
                 <mat-option *ngFor="let status of statuses" [value]="status.value">
                   {{ status.label }}
@@ -78,7 +79,7 @@
             ></span>
           </td>
           <td *ngIf="editable">
-            <button color="error" (click)="remove(vm.id)" mat-icon-button>
+            <button class="btn-delete-server" color="error" (click)="remove(vm.id)" mat-icon-button>
               <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>
             </button>
           </td>
