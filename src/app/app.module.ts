@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BusyConfig, NgBusyModule } from 'ng-busy';
+import { BUSY_CONFIG_DEFAULTS, BusyConfig, NgBusyModule  } from 'ng-busy';
 
 // Angular Material Components
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +22,17 @@ import { TestControllersComponent } from './test-controllers/test-controllers.co
 import { TestServersComponent } from './test-servers/test-servers.component';
 import { VirtualMachineComponent } from './virtual-machine/virtual-machine.component';
 
+const busyConfig: BusyConfig = {
+  message: `Please wait ...`,
+  template: CustomBusyComponent,
+  templateNgStyle: BUSY_CONFIG_DEFAULTS.templateNgStyle,
+  delay: BUSY_CONFIG_DEFAULTS.delay,
+  disableAnimation: BUSY_CONFIG_DEFAULTS.disableAnimation,
+  minDuration: BUSY_CONFIG_DEFAULTS.minDuration,
+  backdrop: BUSY_CONFIG_DEFAULTS.backdrop,
+  wrapperClass: BUSY_CONFIG_DEFAULTS.wrapperClass,
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,10 +46,7 @@ import { VirtualMachineComponent } from './virtual-machine/virtual-machine.compo
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgBusyModule.forRoot(new BusyConfig({
-      message: `Please wait ...`,
-      template: CustomBusyComponent,
-    })),
+    NgBusyModule.forRoot(busyConfig),
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
