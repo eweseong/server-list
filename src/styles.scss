@@ -13,3 +13,12 @@ a {
 .text-sitecore {
     color: #f44336 !important;
 }
+
+.spinner-container {
+    padding: 5rem;
+    text-align: center;
+
+    .mat-spinner {
+        margin: auto;
+    }
+}
