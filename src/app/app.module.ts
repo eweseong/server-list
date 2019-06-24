@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgBusyModule } from 'ng-busy';
+import { BusyConfig, NgBusyModule } from 'ng-busy';
 
 // Angular Material Components
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +15,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CustomBusyComponent } from './custom-busy/custom-busy.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessageComponent } from './message/message.component';
 import { TestControllersComponent } from './test-controllers/test-controllers.component';
@@ -29,11 +30,15 @@ import { VirtualMachineComponent } from './virtual-machine/virtual-machine.compo
     TestControllersComponent,
     VirtualMachineComponent,
     MessageComponent,
+    CustomBusyComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgBusyModule,
+    NgBusyModule.forRoot(new BusyConfig({
+      message: `Please wait ...`,
+      template: CustomBusyComponent,
+    })),
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
@@ -44,6 +49,9 @@ import { VirtualMachineComponent } from './virtual-machine/virtual-machine.compo
     MatProgressSpinnerModule,
     MatSelectModule,
     MatTabsModule,
+  ],
+  entryComponents: [
+    CustomBusyComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
