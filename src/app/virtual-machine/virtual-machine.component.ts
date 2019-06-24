@@ -35,6 +35,10 @@ export class VirtualMachineComponent implements OnInit {
     });
   }
 
+  trackByIds(vm: VirtualMachine): string {
+    return vm.id;
+  }
+
   add() {
     this.vms.push(new VirtualMachine());
   }
