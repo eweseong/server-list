@@ -16,6 +16,6 @@ export class VirtualMachine {
   constructor() {
     this.id = uuid.v4();
 
-    this.status = 'FREE';
+    this.status = 'UNUSED';
   }
 }
