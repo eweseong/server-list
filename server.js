@@ -12,12 +12,14 @@ const allowedExt = [
   '.svg'
 ];
 
+const compression = require('compression');
 const express = require('express');
 const app = express();
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
+app.use(compression());
 app.get('*', (req, res) => {
   const isContent = allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0;
   res.sendFile(path.resolve(`dist/server-list/${isContent ? req.url : "index.html"}`));
