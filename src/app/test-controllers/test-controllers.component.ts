@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
+import { ComponentCanDeactivate } from '../pending-changes.guard';
 import { VirtualMachine } from '../virtual-machine';
 import { VirtualMachineService } from '../virtual-machine.service';
 
@@ -9,11 +10,13 @@ import { VirtualMachineService } from '../virtual-machine.service';
   templateUrl: './test-controllers.component.html',
   styleUrls: ['./test-controllers.component.scss'],
 })
-export class TestControllersComponent implements OnInit {
+export class TestControllersComponent implements OnInit, ComponentCanDeactivate {
 
   busy: Subscription;
 
   controllers: VirtualMachine[] = [];
+
+  dirty = false;
 
   constructor(private vmService: VirtualMachineService) {}
 
@@ -25,7 +28,22 @@ export class TestControllersComponent implements OnInit {
     });
   }
 
-  export(controllers: VirtualMachine[]) {
+  canDeactivate(): Observable<boolean> | boolean {
+    return !this.dirty;
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (!this.canDeactivate()) {
+      $event.returnValue = 'Warning!!';
+    }
+  }
+
+  onFormDirtied(dirty: boolean) {
+    this.dirty = dirty;
+  }
+
+  onFormSaved(controllers: VirtualMachine[]) {
     this.busy = this.vmService.exportControllers(controllers).subscribe((res) => console.log(res));
   }
 

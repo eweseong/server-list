@@ -2,5 +2,6 @@
   tableName="Test Servers"
   [ngBusy]="busy"
   [vms]="servers"
-  (serverExport)="export($event)"
+  (formDirty)="onFormDirtied($event)"
+  (formSave)="onFormSaved($event)"
 ></app-virtual-machine>

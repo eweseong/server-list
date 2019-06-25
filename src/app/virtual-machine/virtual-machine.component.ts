@@ -25,7 +25,10 @@ export class VirtualMachineComponent implements OnInit {
   vms: VirtualMachine[] = [];
 
   @Output()
-  serverExport = new EventEmitter();
+  formDirty = new EventEmitter();
+
+  @Output()
+  formSave = new EventEmitter();
 
   constructor(private route: ActivatedRoute) {}
 
@@ -43,20 +46,22 @@ export class VirtualMachineComponent implements OnInit {
     this.vms.push(new VirtualMachine());
   }
 
-  save() {
-    this.serverExport.emit(this.vms);
-  }
-
   updateList(id: string, property: string, event: any) {
     const selectedServer = this.vms.find((server) => server.id === id);
     if (selectedServer) {
-      selectedServer[property] = event.target.textContent;
+      selectedServer[property] = event.value || event.target.textContent;
+      this.formDirty.emit(true);
     }
   }
 
   remove(id: string) {
     const removeIndex = this.vms.findIndex((server) => server.id === id);
     this.vms.splice(removeIndex, 1);
+  }
+
+  save() {
+    this.formSave.emit(this.vms);
+    this.formDirty.emit(false);
   }
 
 }

@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { CustomBusyComponent } from './custom-busy/custom-busy.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessageComponent } from './message/message.component';
+import { PendingChangesGuard } from './pending-changes.guard';
 import { TestControllersComponent } from './test-controllers/test-controllers.component';
 import { TestServersComponent } from './test-servers/test-servers.component';
 import { VirtualMachineComponent } from './virtual-machine/virtual-machine.component';
@@ -61,7 +62,7 @@ const busyConfig: BusyConfig = {
   entryComponents: [
     CustomBusyComponent,
   ],
-  providers: [],
+  providers: [PendingChangesGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

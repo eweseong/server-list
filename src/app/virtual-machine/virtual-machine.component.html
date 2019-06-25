@@ -63,7 +63,7 @@
           </td>
           <td>
             <mat-form-field class="text-center">
-              <mat-select [(value)]="vm.status" (change)="updateList(vm.id, 'status', $event)">
+              <mat-select [(value)]="vm.status" (selectionChange)="updateList(vm.id, 'status', $event)">
                 <mat-option *ngFor="let status of statuses" [value]="status.value">
                   {{ status.label }}
                 </mat-option>
