@@ -3,7 +3,7 @@
   <mat-card-title>
     {{ tableName }}
     <span class="table-action float-right mb-3 mr-2">
-      <button *ngIf="vms && vms.length > 0" color="primary" (click)="save()" mat-fab>
+      <button *ngIf="vms && vms.length > 0" class="btn-save" color="primary" (click)="save()" mat-fab>
         <mat-icon aria-hidden="false" aria-label="Save">save</mat-icon>
       </button>
     </span>
