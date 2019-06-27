@@ -32,12 +32,12 @@ http.createServer(app).listen(port, () => {
 });
 // Create an HTTPS service identical to the HTTP service.
 const options = {
-  key: fs.readFileSync('./security/server.key'),
-  cert: fs.readFileSync('./security/server.cert'),
+  // key: fs.readFileSync('./security/server.key'),
+  // cert: fs.readFileSync('./security/server.cert'),
   requestCert: false,
   rejectUnauthorized: false
 };
 const securePort = process.env.securePort || 8889;
-https.createServer(options, app).listen(securePort, () => {
-  console.log('application listening on port: ' + securePort);
-});
+// https.createServer(options, app).listen(securePort, () => {
+//   console.log('application listening on port: ' + securePort);
+// });
