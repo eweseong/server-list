@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { VirtualMachine } from '../virtual-machine';
@@ -38,15 +38,24 @@ export class VirtualMachineComponent implements OnInit {
     });
   }
 
+  @HostListener('document:keydown', ['$event'])
+  onSaveShortcutPressed(event: KeyboardEvent): void {
+    const charCode = String.fromCharCode(event.which).toLowerCase();
+    if (event.ctrlKey && charCode === 's') {
+      event.preventDefault();
+      this.save();
+    }
+  }
+
   trackByIds(vm: VirtualMachine): string {
     return vm.id;
   }
 
-  add() {
+  add(): void {
     this.vms.push(new VirtualMachine());
   }
 
-  updateList(id: string, property: string, event: any) {
+  updateList(id: string, property: string, event: any): void {
     const selectedServer = this.vms.find((server) => server.id === id);
     if (selectedServer) {
       selectedServer[property] = event.value || event.target.textContent;
@@ -54,12 +63,12 @@ export class VirtualMachineComponent implements OnInit {
     }
   }
 
-  remove(id: string) {
+  remove(id: string): void {
     const removeIndex = this.vms.findIndex((server) => server.id === id);
     this.vms.splice(removeIndex, 1);
   }
 
-  save() {
+  save(): void {
     this.formSave.emit(this.vms);
     this.formDirty.emit(false);
   }
