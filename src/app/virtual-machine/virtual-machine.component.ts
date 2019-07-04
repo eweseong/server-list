@@ -1,4 +1,5 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 
 import { VirtualMachine } from '../virtual-machine';
@@ -17,6 +18,9 @@ export class VirtualMachineComponent implements OnInit {
   ];
 
   editable: boolean;
+
+  @ViewChild('btnSave')
+  btnSave: MatButton;
 
   @Input()
   tableName = 'Table';
@@ -43,6 +47,7 @@ export class VirtualMachineComponent implements OnInit {
     const charCode = String.fromCharCode(event.which).toLowerCase();
     if (event.ctrlKey && charCode === 's') {
       event.preventDefault();
+      this.btnSave.focus();
       this.save();
     }
   }
