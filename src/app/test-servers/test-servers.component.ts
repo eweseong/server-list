@@ -1,5 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ComponentCanDeactivate } from '../pending-changes.guard';
 import { VirtualMachine } from '../virtual-machine';
 import { VirtualMachineService } from '../virtual-machine.service';
@@ -9,7 +10,9 @@ import { VirtualMachineService } from '../virtual-machine.service';
   templateUrl: './test-servers.component.html',
   styleUrls: ['./test-servers.component.scss'],
 })
-export class TestServersComponent implements OnInit, ComponentCanDeactivate {
+export class TestServersComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
+
+  private destroyed$: Subject<{}> = new Subject();
 
   busy: Subscription;
 
@@ -20,11 +23,13 @@ export class TestServersComponent implements OnInit, ComponentCanDeactivate {
   constructor(private vmService: VirtualMachineService) { }
 
   ngOnInit() {
-    this.busy = this.vmService.getServers().subscribe((servers) => {
-      if (servers) {
-        this.servers = servers;
-      }
-    });
+    this.busy = this.vmService.getServers()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((servers) => {
+        if (servers) {
+          this.servers = servers;
+        }
+      });
   }
 
   canDeactivate(): Observable<boolean> | boolean {
@@ -43,7 +48,13 @@ export class TestServersComponent implements OnInit, ComponentCanDeactivate {
   }
 
   onFormSaved(servers: VirtualMachine[]) {
-    this.busy = this.vmService.exportServers(servers).subscribe((res) => console.log(res));
+    this.busy = this.vmService.exportServers(servers)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res) => console.log(res));
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
 }

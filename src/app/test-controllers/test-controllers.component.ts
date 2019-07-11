@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 
+import { takeUntil } from 'rxjs/operators';
 import { ComponentCanDeactivate } from '../pending-changes.guard';
 import { VirtualMachine } from '../virtual-machine';
 import { VirtualMachineService } from '../virtual-machine.service';
@@ -10,7 +11,9 @@ import { VirtualMachineService } from '../virtual-machine.service';
   templateUrl: './test-controllers.component.html',
   styleUrls: ['./test-controllers.component.scss'],
 })
-export class TestControllersComponent implements OnInit, ComponentCanDeactivate {
+export class TestControllersComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
+
+  private destroyed$: Subject<{}> = new Subject();
 
   busy: Subscription;
 
@@ -21,11 +24,13 @@ export class TestControllersComponent implements OnInit, ComponentCanDeactivate 
   constructor(private vmService: VirtualMachineService) {}
 
   ngOnInit(): void {
-    this.busy = this.vmService.getControllers().subscribe((controllers) => {
-      if (controllers) {
-        this.controllers = controllers;
-      }
-    });
+    this.busy = this.vmService.getControllers()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((controllers) => {
+        if (controllers) {
+          this.controllers = controllers;
+        }
+      });
   }
 
   canDeactivate(): Observable<boolean> | boolean {
@@ -44,7 +49,13 @@ export class TestControllersComponent implements OnInit, ComponentCanDeactivate 
   }
 
   onFormSaved(controllers: VirtualMachine[]) {
-    this.busy = this.vmService.exportControllers(controllers).subscribe((res) => console.log(res));
+    this.busy = this.vmService.exportControllers(controllers)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res) => console.log(res));
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
 }
