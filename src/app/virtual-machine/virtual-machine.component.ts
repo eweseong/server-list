@@ -44,7 +44,7 @@ export class VirtualMachineComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   onSaveShortcutPressed(event: KeyboardEvent): void {
-    const charCode = String.fromCharCode(event.which).toLowerCase();
+    const charCode = event.key.toLowerCase();
     if (event.ctrlKey && charCode === 's') {
       event.preventDefault();
       this.btnSave.focus();
