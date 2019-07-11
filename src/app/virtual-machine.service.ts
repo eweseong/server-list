@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { MessageService } from './message.service';
@@ -22,40 +22,41 @@ export class VirtualMachineService {
 
   getServers(): Observable<VirtualMachine[]> {
     return this.httpClient.get<VirtualMachine[]>(this.serverURI).pipe(
-      // tap((_) => this.log('fetching servers')),
       catchError(this.handleError<VirtualMachine[]>('getServers')),
     );
   }
 
   getControllers(): Observable<VirtualMachine[]> {
     return this.httpClient.get<VirtualMachine[]>(this.controllerURI).pipe(
-      // tap((_) => this.log('fetching controllers')),
       catchError(this.handleError<VirtualMachine[]>('getControllers')),
     );
   }
 
   exportServers(servers: VirtualMachine[]): Observable<VirtualMachine[]> {
     return this.httpClient.post<VirtualMachine[]>(`${this.serverURI}export`, servers).pipe(
-      // tap((_) => this.log('exporting servers')),
+      tap((res) => this.log(res)),
       catchError(this.handleError<VirtualMachine[]>('exportServers')),
     );
   }
 
   exportControllers(controllers: VirtualMachine[]): Observable<VirtualMachine[]> {
     return this.httpClient.post<VirtualMachine[]>(`${this.controllerURI}export`, controllers).pipe(
-      // tap((_) => this.log('exporting controllers')),
+      tap((res) => this.log(res)),
       catchError(this.handleError<VirtualMachine[]>('exportControllers')),
     );
   }
 
-  private log(message: string) {
-    this.messageService.add(`VirtualMachineService: ${message}`);
-  }
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      this.log(`${operation} failed: ${error.message}`);
+      console.error(`VirtualMachineService: ${operation} failed: ${error.message}`);
+      this.messageService.add('No response from server, please contact system admin to investigate the issue');
       return of(result as T);
     };
+  }
+
+  private log(message: any) {
+    if (typeof message === 'string') {
+      this.messageService.prompt(String(message));
+    }
   }
 }

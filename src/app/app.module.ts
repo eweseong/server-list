@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -55,12 +56,16 @@ const busyConfig: BusyConfig = {
     MatIconModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatSnackBarModule,
     MatTabsModule,
   ],
   entryComponents: [
     CustomBusyComponent,
   ],
-  providers: [PendingChangesGuard],
+  providers: [
+    PendingChangesGuard,
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
