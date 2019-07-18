@@ -63,8 +63,12 @@ export class VirtualMachineComponent implements OnInit {
   updateList(id: string, property: string, event: any): void {
     const selectedServer = this.vms.find((server) => server.id === id);
     if (selectedServer) {
-      selectedServer[property] = event.value || event.target.textContent;
-      this.formDirty.emit(true);
+      const oldValue = selectedServer[property];
+      const newValue = event.value || event.target.textContent;
+      if (oldValue !== newValue) {
+        selectedServer[property] = newValue;
+        this.formDirty.emit(true);
+      }
     }
   }
 
