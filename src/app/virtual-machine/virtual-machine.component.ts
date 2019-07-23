@@ -74,7 +74,20 @@ export class VirtualMachineComponent implements OnInit {
 
   remove(id: string): void {
     const removeIndex = this.vms.findIndex((server) => server.id === id);
-    this.vms.splice(removeIndex, 1);
+    if (removeIndex > -1) {
+      this.vms.splice(removeIndex, 1);
+    }
+  }
+
+  reset(id: string): void {
+    // TODO - YEO (Jul 23, 2019): reset owner value and description
+    const selectedServer = this.vms.find((server) => server.id === id);
+    if (selectedServer) {
+      selectedServer.owner = '';
+      selectedServer.status = 'UNUSED';
+      selectedServer.description = '';
+      this.formDirty.emit(true);
+    }
   }
 
   save(): void {

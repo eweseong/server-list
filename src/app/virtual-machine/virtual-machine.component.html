@@ -19,8 +19,8 @@
           <th>Owner</th>
           <th>Status</th>
           <th class="text-left">Description</th>
-          <th *ngIf="editable">
-            <button class="btn-add-server" (click)="add()" mat-raised-button>
+          <th>
+            <button *ngIf="editable" class="btn-add-server" (click)="add()" mat-raised-button>
               <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon> Add Server
             </button>
           </th>
@@ -78,8 +78,11 @@
               (blur)="updateList(vm.id, 'description', $event)"
             ></span>
           </td>
-          <td *ngIf="editable">
-            <button class="btn-delete-server" color="error" (click)="remove(vm.id)" mat-icon-button>
+          <td>
+            <button class="btn-reset-server" color="accent" (click)="reset(vm.id)" mat-icon-button>
+              <mat-icon aria-hidden="false" aria-label="Reset">clear_all</mat-icon>
+            </button>
+            <button *ngIf="editable" class="btn-delete-server" color="error" (click)="remove(vm.id)" mat-icon-button>
               <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>
             </button>
           </td>

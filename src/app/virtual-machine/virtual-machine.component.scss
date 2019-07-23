@@ -37,7 +37,9 @@
     span[contenteditable='false'] {
         cursor: default;
     }
+    .btn-reset-server,
     .btn-delete-server {
+        display: inherit;
         margin: auto;
     }
 }
