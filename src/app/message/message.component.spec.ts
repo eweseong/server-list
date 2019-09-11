@@ -22,8 +22,8 @@ describe('MessageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MessageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
     element = fixture.debugElement;
+    fixture.detectChanges();
   });
 
   it('should create', () => {

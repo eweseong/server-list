@@ -12,81 +12,65 @@
   <mat-card-content>
     <div class="table-editable">
       <table class="table text-center vm-list-table">
-        <tr>
-          <th></th>
-          <th>Hostname</th>
-          <th>IP Address</th>
-          <th>Owner</th>
-          <th>Status</th>
-          <th class="text-left">Description</th>
-          <th>
-            <button *ngIf="editable" class="btn-add-server" (click)="add()" mat-raised-button>
-              <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon> Add Server
-            </button>
-          </th>
-        </tr>
-        <tr
-          *ngFor="let vm of vms; trackBy: trackByIds"
-          [ngClass]="{
-            'server-used': vm.status.toUpperCase().includes('USED'),
-            'server-unused': vm.status.toUpperCase().includes('UNUSED')
-          }"
-        >
-          <td>
-            <a href="http://{{ vm.hostname }}" target="_blank">
-              <mat-icon aria-hidden="false" aria-label="Server">storage</mat-icon>
-            </a>
-          </td>
-          <td>
-            <span
-              data-placeholder="Hostname ..."
-              [contentEditable]="editable"
-              [innerHTML]="vm.hostname"
-              (blur)="updateList(vm.id, 'hostname', $event)"
-            ></span>
-          </td>
-          <td>
-            <span
-              data-placeholder="IP ..."
-              [contentEditable]="editable"
-              [innerHTML]="vm.ip"
-              (blur)="updateList(vm.id, 'ip', $event)"
-            ></span>
-          </td>
-          <td>
-            <span
-              contentEditable="true"
-              data-placeholder="Owner name ..."
-              [innerHTML]="vm.owner"
-              (blur)="updateList(vm.id, 'owner', $event)"
-            ></span>
-          </td>
-          <td>
-            <mat-form-field class="text-center">
-              <mat-select [(value)]="vm.status" (selectionChange)="updateList(vm.id, 'status', $event)">
-                <mat-option *ngFor="let status of statuses" [value]="status.value">
-                  {{ status.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </td>
-          <td class="text-left">
-            <span
-              contentEditable="true"
-              data-placeholder="Description ..."
-              [innerHTML]="vm.description"
-              (blur)="updateList(vm.id, 'description', $event)"
-            ></span>
-          </td>
-          <td>
-            <button class="btn-reset-server" color="accent" (click)="reset(vm.id)" mat-icon-button>
-              <mat-icon aria-hidden="false" aria-label="Reset">clear_all</mat-icon>
-            </button>
-            <button *ngIf="editable" class="btn-delete-server" color="error" (click)="remove(vm.id)" mat-icon-button>
-              <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>
-            </button>
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Hostname</th>
+            <th>IP Address</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th class="text-left">Description</th>
+            <th>
+              <button *ngIf="editable" class="btn-add-server" (click)="add()" mat-raised-button>
+                <mat-icon aria-hidden="false" aria-label="Add">add_box</mat-icon> Add Server
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vm of vms; trackBy: trackByIds" data-id="{{ vm.id }}" [ngClass]="{
+              'server-used': vm.status.toUpperCase().includes('USED'),
+              'server-unused': vm.status.toUpperCase().includes('UNUSED')
+            }">
+            <td>
+              <a href="http://{{ vm.hostname }}" target="_blank">
+                <mat-icon aria-hidden="false" aria-label="Server">storage</mat-icon>
+              </a>
+            </td>
+            <td>
+              <span data-placeholder="Hostname ..." [contentEditable]="editable" [innerHTML]="vm.hostname"
+                (blur)="updateList(vm.id, 'hostname', $event)"></span>
+            </td>
+            <td>
+              <span data-placeholder="IP ..." [contentEditable]="editable" [innerHTML]="vm.ip" (blur)="updateList(vm.id, 'ip', $event)"></span>
+            </td>
+            <td>
+              <span contentEditable="true" data-placeholder="Owner name ..." [innerHTML]="vm.owner"
+                (blur)="updateList(vm.id, 'owner', $event)"></span>
+            </td>
+            <td>
+              <mat-form-field class="text-center">
+                <mat-select [(value)]="vm.status" (selectionChange)="updateList(vm.id, 'status', $event)">
+                  <mat-option *ngFor="let status of statuses" [value]="status.value">
+                    {{ status.label }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td class="text-left">
+              <span contentEditable="true" data-placeholder="Description ..." [innerHTML]="vm.description"
+                (blur)="updateList(vm.id, 'description', $event)"></span>
+            </td>
+            <td>
+              <button class="btn-reset-server" color="accent" (click)="reset(vm.id)" mat-icon-button>
+                <mat-icon aria-hidden="false" aria-label="Reset" matTooltip="Clear all fields">clear_all</mat-icon>
+              </button>
+              <button *ngIf="editable" class="btn-delete-server" color="error" (click)="remove(vm.id)" mat-icon-button>
+                <mat-icon aria-hidden="false" aria-label="Delete" matTooltip="Delete Server">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </mat-card-content>
